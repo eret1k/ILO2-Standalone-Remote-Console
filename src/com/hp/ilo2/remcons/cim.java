@@ -307,15 +307,15 @@ public class cim extends telnet implements MouseSyncListener {
         char c3 = (char) (clientY / 256);
         char c4 = (char) (clientY % 256);
         if (this.mouse_protocol == 0) {
-            transmit("" + TELNET_IAC + CMD_MOUSE_MOVE + (char) paramInt1 + "" + (char) paramInt2);
+            transmit("" + (char)TELNET_IAC + (char)CMD_MOUSE_MOVE + (char) paramInt1 + "" + (char) paramInt2);
         } else {
-            transmit("" + TELNET_IAC + CMD_MOUSE_MOVE + (char) paramInt1 + "" + (char) paramInt2 + "" + c1 + "" + c2 + "" + c3 + "" + c4);
+            transmit("" + (char)TELNET_IAC + (char)CMD_MOUSE_MOVE + (char) paramInt1 + "" + (char) paramInt2 + "" + c1 + "" + c2 + "" + c3 + "" + c4);
         }
     }
 
     public void mouse_mode_change(boolean absolute) {
         char mode = absolute ? MOUSE_USBABS : MOUSE_USBREL;
-        transmit("" + TELNET_IAC + CMD_SET_MODE + mode);
+        transmit("" + (char)TELNET_IAC + (char)CMD_SET_MODE + mode);
     }
 
     public void mouseEntered(MouseEvent event) {
@@ -411,7 +411,9 @@ public class cim extends telnet implements MouseSyncListener {
 
             try {
                 this.out.write(arrayOfByte, 0, arrayOfByte.length);
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+                System.out.println(ignored.getMessage());
+            }
         }
     }
 
@@ -925,19 +927,19 @@ public class cim extends telnet implements MouseSyncListener {
     }
 
     public void send_mouse_press(int paramInt) {
-        transmit("" + TELNET_IAC + CMD_BUTTON_PRESS + (char) paramInt);
+        transmit("" + (char)TELNET_IAC + (char)CMD_BUTTON_PRESS + (char) paramInt);
     }
 
     public void send_mouse_release(int paramInt) {
-        transmit("" + TELNET_IAC + CMD_BUTTON_RELEASE + (char) paramInt);
+        transmit("" + (char)TELNET_IAC + (char)CMD_BUTTON_RELEASE + (char) paramInt);
     }
 
     public void send_mouse_click(int paramInt1, int paramInt2) {
-        transmit("" + TELNET_IAC + CMD_BUTTON_CLICK + (char) paramInt1 + "" + (char) paramInt2);
+        transmit("" + (char)TELNET_IAC + (char)CMD_BUTTON_CLICK + (char) paramInt1 + "" + (char) paramInt2);
     }
 
     public void send_mouse_byte(int paramInt) {
-        transmit("" + TELNET_IAC + CMD_BYTE + (char) paramInt);
+        transmit("" + (char)TELNET_IAC + (char)CMD_BYTE + (char) paramInt);
     }
 
     public void refresh_screen() {

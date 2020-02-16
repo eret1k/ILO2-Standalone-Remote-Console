@@ -137,7 +137,7 @@ public class MouseSync implements MouseListener, MouseMotionListener, TimerListe
     }
 
     public void mouseEntered(MouseEvent event) {
-        //stateMachine(CMD_ENTER, event, 0, 0);
+        stateMachine(CMD_ENTER, event, 0, 0);
     }
 
     public void mouseExited(MouseEvent event) {
@@ -179,7 +179,7 @@ public class MouseSync implements MouseListener, MouseMotionListener, TimerListe
         System.arraycopy(arrayOfInt, 0, this.send_dx, 0, this.send_dx.length);
         System.arraycopy(arrayOfInt, 0, this.send_dy, 0, this.send_dy.length);
         System.arraycopy(arrayOfInt, 0, this.recv_dx, 0, this.recv_dx.length);
-        System.arraycopy(arrayOfInt, 0, this.recv_dx, 0, this.recv_dy.length);
+        System.arraycopy(arrayOfInt, 0, this.recv_dy, 0, this.recv_dy.length);
 
         this.send_dx_index = 0;
         this.send_dy_index = 0;

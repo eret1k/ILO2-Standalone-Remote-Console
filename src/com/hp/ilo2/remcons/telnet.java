@@ -472,9 +472,9 @@ public class telnet extends Panel implements Runnable, MouseListener, FocusListe
                         System.out.println("telnet.run() s or in is null");
                         break;
                     }
-                    this.s.setSoTimeout(1000);
+                    this.s.setSoTimeout(10000);
                     n = this.in.read(arrayOfByte);
-
+                    System.out.println(n);
                 } catch (InterruptedIOException e) {
                     continue;
                 } catch (Exception e) {

@@ -681,17 +681,17 @@ public class remcons extends Applet implements ActionListener, ItemListener, Tim
         } else {
             str = "type" + paramInt;
         }
-        this.term_svcs_label = prop.getProperty(str + ".label", "Terminal Svcs");
+        this.term_svcs_label = prop.getProperty(str + ".label", "Terminal Svcs00");
     }
 
 
     static {
         prop = new Properties();
-        try {
+        /*try {
             prop.load(new FileInputStream(System.getProperty("user.home") + File.separator + ".java" + File.separator + "hp.properties"));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public HashMap<String,String> params;

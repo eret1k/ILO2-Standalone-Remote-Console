@@ -9,13 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.Security;
 import java.util.*;
 
 import com.hp.ilo2.remcons.remcons;
-import mjson.Json;
 import sun.misc.BASE64Encoder;
 
 import java.util.List;
@@ -37,11 +34,11 @@ var sessionindex="00000005";
 public class Main {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko";
 
-    private static final String COOKIE_FILE = "data.cook";
+    private static final String COOKIE_FILE = System.getProperty("user.home") + File.separator + "hp.cookies.cook";
 
-    private static String username = "";
-    private static String password = "";
-    private static String hostname = "";
+    private static String username = "Administrator";
+    private static String password = "****";
+    private static String hostname = "192.168.8.8";
 
     public static void setHostname(String hostname) {
         Main.hostname = hostname;
@@ -151,7 +148,7 @@ public class Main {
         con.setRequestProperty("Referer", loginURL);
         con.setRequestProperty("Host", hostname);
         con.setRequestProperty("Accept-Language", "de-DE");
-        if(supercookie != "") {
+        if(!supercookie.equals("")) {
             con.setRequestProperty("Cookie", supercookie);
         }
 
@@ -228,20 +225,9 @@ public class Main {
         SSLUtilities.trustAllHostnames();
         SSLUtilities.trustAllHttpsCertificates();
         CookieHandler.setDefault(cookieManager);
+        setHostname(hostname);
         try {
-            String config = new String(Files.readAllBytes(Paths.get("config.json")));
-            System.out.println("Config JSON:" + config);
-            Json js = Json.read(config);
-            username = js.at("Username").asString();
-            password = js.at("Password").asString();
-            setHostname(js.at("Hostname").asString());
-        } catch (Exception e) {
-            System.err.println("Error in parsing config file!");
-            e.printStackTrace();
-            return;
-        }
-        try {
-            try (BufferedReader br = new BufferedReader(new FileReader("data.cook"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(COOKIE_FILE))) {
                 System.out.println("Found datastore");
                 String line;
                 String lastline = "";
@@ -265,8 +251,8 @@ public class Main {
                 e.printStackTrace();
             }
             Stage3();
-            //hmap.put("IPADDR", hostname);
-            //hmap.put("DEBUG", "suckAdIck");
+            hmap.put("IPADDR", hostname);
+            hmap.put("DEBUG", "suckAdIck");
 
             remcons rmc = new remcons(hmap);
             rmc.SetHost(hostname);
